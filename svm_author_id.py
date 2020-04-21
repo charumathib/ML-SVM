@@ -25,9 +25,15 @@ features_train, features_test, labels_train, labels_test = preprocess()
 from sklearn.svm import SVC 
 from sklearn.metrics import accuracy_score
 
+features_train = features_train[:len(features_train)/100]
+labels_train = labels_train[:len(labels_train)/100]
+
 clf = SVC(kernel = "rbf", gamma = "auto", C = 10000)
 clf.fit(features_train, labels_train) 
 pred = clf.predict(features_test)
+
+for i in [10, 26, 50]:
+    print "Prediction at ", str(i), "is ", pred[i]
 
 accuracy = accuracy_score(labels_test, pred)
 print(accuracy)
